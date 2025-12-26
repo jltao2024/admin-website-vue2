@@ -29,17 +29,17 @@
       </el-menu-item>
       <el-menu-item index="/markdown">
         <i class="el-icon-edit"></i>
-        <span slot="title">Markdown编辑器</span>
+        <span slot="title">Markdown</span>
       </el-menu-item>
       <el-menu-item index="/flow-chart">
         <i class="el-icon-data-line"></i>
         <span slot="title">流程图绘制</span>
       </el-menu-item>
       <!-- 内容管理系统菜单项 -->
-      <el-submenu index="/content" v-if="hasPermission('article:manage') || hasPermission('category:manage') || hasPermission('tag:manage')">
+      <el-submenu class="submenu" v-if="hasPermission('article:manage') || hasPermission('category:manage') || hasPermission('tag:manage')">
         <template slot="title">
           <i class="el-icon-document"></i>
-          <span>内容管理</span>
+          <span class="submenu-title">内容管理</span>
         </template>
         <el-menu-item index="/articles" v-if="hasPermission('article:manage')">
           <i class="el-icon-document-copy"></i>
@@ -66,10 +66,6 @@ export default {
   computed: {
     activeMenu() {
       const path = this.$route.path || '/'      
-      // 如果是子菜单路径，返回父菜单路径
-      if (path.startsWith('/articles') || path.startsWith('/categories') || path.startsWith('/tags')) {
-        return '/content'
-      }
       return path
     },
     ...mapGetters('auth', [
@@ -96,7 +92,7 @@ export default {
 
 /* 统一主菜单项和子菜单标题的样式 */
 .sidebar-menu .el-menu-item,
-.sidebar-menu .el-submenu__title {
+.sidebar-menu ::v-deep .el-submenu__title {
   height: 55px;
   line-height: 55px;
   transition: all 0.3s ease;
@@ -105,12 +101,16 @@ export default {
   color: #909399;
 }
 
+.sidebar-menu .el-menu-item span {
+  font-size: 17px;
+}
+
 /* 统一主菜单项和子菜单标题的hover效果 */
 .sidebar-menu .el-menu-item:hover,
-.sidebar-menu .el-submenu__title:hover {
+/* 使用深度选择器 */
+.sidebar-menu ::v-deep .el-submenu__title:hover {
   background-color: #34495e;
   color: #ffba58 !important;
-  transform: translateX(2px);
 }
 
 /* 统一主菜单项和子菜单标题的激活状态样式 */
@@ -132,11 +132,24 @@ export default {
   text-align: center;
   color: inherit;
 }
+.sidebar-menu ::v-deep .el-submenu__title:hover .el-submenu__icon-arrow {
+  color: #ffba58 !important;
+}
+
+/* 子菜单容器样式 */
+.sidebar-menu .el-submenu .el-menu {
+  background-color: #2c3e50 !important;
+}
+.sidebar-menu .el-submenu .el-menu-item:hover {
+  background-color: #34495e !important;
+  color: #ffba58 !important;
+}
 
 /* 子菜单项样式 */
 .sidebar-menu .el-submenu .el-menu-item {
   padding-left: 45px !important;
   font-size: 16px;
+  background-color: #2c3e50 !important;
 }
 
 /* 确保子菜单项的激活状态与主菜单一致 */

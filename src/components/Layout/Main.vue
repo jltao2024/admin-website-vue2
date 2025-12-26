@@ -20,9 +20,7 @@ export default {
   computed: {
     currentPageName() {
       const route = this.$route
-      const routes = this.$router.options.routes
-      const currentRoute = routes.find(r => r.path === route.path)
-      return currentRoute ? currentRoute.name : ''
+      return route.name || ''
     }
   }
 }

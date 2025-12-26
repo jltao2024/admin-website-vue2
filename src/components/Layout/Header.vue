@@ -92,8 +92,6 @@ export default {
   align-items: center;
   cursor: pointer;
   padding: 8px 12px;
-  border-radius: 4px;
-  transition: all 0.3s ease;
 }
 
 .user-info .el-avatar {

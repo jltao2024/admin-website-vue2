@@ -7,7 +7,7 @@ function resolve(dir) {
 }
 
 const name = defaultSettings.title || 'Admin Website Vue2'              // page title
-const port = process.env.port || process.env.npm_config_port || 9090    // dev port
+const port = process.env.port || process.env.npm_config_port || 8080    // dev port
 
 module.exports = {
   publicPath: '/',
